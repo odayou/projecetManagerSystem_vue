@@ -1003,6 +1003,21 @@
                             >
                             </a-date-picker>
                         </a-form-item>
+                        <a-form-item
+                                label="结束时间"
+                        >
+                            <a-date-picker
+                                    showTime
+                                    format="YYYY年MM月DD日 HH:mm"
+                                    allowClear
+                                    placeholder="请选择日期"
+                                    v-decorator="[
+                                'end_time',
+                                {rules: [{ required: true, message: '请选择日期' }], validateTrigger: 'change',initialValue: moment()}
+                            ]"
+                            >
+                            </a-date-picker>
+                        </a-form-item>
                     </a-col>
                     <a-col :span="12">
                         <a-form-item
@@ -1817,6 +1832,7 @@
                         app.workTimeDo.form.setFieldsValue({
                             num: workTime.num,
                             begin_time: moment(workTime.begin_time),
+                            end_time: workTime.end_time,
                             content: workTime.content,
                         });
                     })
@@ -1863,6 +1879,7 @@
                             app.workTimeDo.confirmLoading = true;
                             let data = {
                                 beginTime: values.begin_time.format('YYYY-MM-DD HH:mm'),
+                                endTime: values.end_time ? Number(values.end_time.format("X")) : 0,
                                 num: values.num,
                                 content: values.content,
                                 taskCode: app.code,
