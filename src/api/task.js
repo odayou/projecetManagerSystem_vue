@@ -105,4 +105,8 @@ export function editTaskWorkTime(data) {
 export function delTaskWorkTime(data) {
     return $http.post('project/task/delTaskWorkTime', data);
 }
+export function getTaskWorkTimeToday(data) {
+    return $http.post('project/task/_getTodayWorkTime', data);
+}
+
 
