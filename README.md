@@ -1,4 +1,4 @@
-# PearProject
+# ProjecetManagerSystem_vue
 
 **魔改自[Pear，梨子项目管理系统](https://github.com/a54552239/pearProject), 鸣谢**
 
