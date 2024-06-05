@@ -47,11 +47,47 @@
         </div>
         <!--<wrapper-content :showHeader="false">-->
         <div class="page-wrapper">
-            <a-row class="page-wrapper-content" :gutter="24">
-                <a-col class="project-list-content" :xl="16" :lg="24" :md="24" :sm="24" :xs="24">
-                    
+            <a-row class="page-wrapper-content">
+                <a-col class="project-list-content">
                     <!-- 按任务统计展示当日的工时消耗，同时展示任务名(带连接)、所属项目名(带连接) -->
-                    <a-card class="tasks-list" style="margin-bottom: 24px"
+                    <a-card class="tasks-list"
+                                :bordered="false">
+                        <div slot="title">
+                            <div class="flex ant-row-flex-space-between ant-row-flex-middle">
+                                <span>本周工时</span>
+                            </div>
+                        </div>
+                                <a-card class="tasks-list"
+                                :bordered="false" :key="index" v-for="(item, index) in taskWorkTimeThisWeek">
+                                    <div slot="title">
+                                        <div class="flex ant-row-flex-space-between ant-row-flex-middle">
+                                            <span>{{index}}&nbsp;{{moment(index).format('dddd')}}{{moment(index).isSame(today, 'day') ? '&nbsp;今天' : ''}}&nbsp;{{item.totalNum}}小时</span>
+                                        </div>
+                                    </div>
+                                    <a-list>
+                                        <a-list-item :key="index2" v-for="(item2, index2) in item.list">
+                                            <a-list-item-meta>
+                                                <div slot="title">
+                                                    <router-link target="_blank"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}`"
+                                                            class="right-item">「 {{ item2.name }} 」
+                                                    </router-link>
+                                            
+                                                    <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
+                                                    <router-link target="_blank" :to="`/project/space/task/${item2.project_code}`">
+                                                        {{item2.project_name}}
+                                                    </router-link>
+                                                    &nbsp;{{ item2.num }} 小时
+
+                                                    <!--</a-tooltip>-->
+                                                </div>
+                                            </a-list-item-meta>
+                                        </a-list-item>
+                                    </a-list>
+                                </a-card>
+                    </a-card>
+                    <!-- 按任务统计展示当日的工时消耗，同时展示任务名(带连接)、所属项目名(带连接) -->
+                    <!-- <a-card class="tasks-list" style="margin-bottom: 24px"
                                 :bordered="false">
                         <div slot="title">
                             <div class="flex ant-row-flex-space-between ant-row-flex-middle">
@@ -69,17 +105,15 @@
                                         </router-link>
                                     </div>
                                     <div slot="description">
-                                        <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
                                         {{ item.num }} 小时
                                         <router-link target="_blank" :to="`/project/space/task/${item.project_code}`">
                                             {{item.project_name}}
                                         </router-link>
-                                        <!--</a-tooltip>-->
                                     </div>
                                 </a-list-item-meta>
                             </a-list-item>
                         </a-list>
-                    </a-card>
+                    </a-card> -->
                     <a-card
                             class="project-list"
                             :loading="loading"
@@ -369,7 +403,7 @@
     import {list as accountList} from "../../api/user";
     import pagination from "../../mixins/pagination";
     import {getLogBySelfProject, selfList, taskDone} from "@/api/task";
-    import {getTaskWorkTimeToday} from "@/api/task";
+    import {getTaskWorkTimeToday, getThisWeekWorkTime} from "@/api/task";
 
     import task from "../project/space/task";
     import {confirmJoin, myList} from "@/api/projectEvents";
@@ -389,6 +423,7 @@
                 projectTotal: 0,
                 activities: [],
                 taskWorkTimeToday:[],
+                taskWorkTimeThisWeek:[],
                 totalWorkTimeToday:0,
                 tasks: [],
                 tasksTotal: 0,
@@ -440,7 +475,6 @@
                 this.init();
             },
             socketAction(val) {
-                console.log(val);
                 if (val.action === 'organization:task') {
                     this.init(false, false);
                 }
@@ -458,7 +492,8 @@
                 this.getTaskLog();
                 this.getAccountList();
                 this.getEvents();
-                this.getTaskWorkTimeToday();
+                // this.getTaskWorkTimeToday();
+                this.getThisWeekWorkTime();
             },
             getProjectList(loading) {
                 if (loading) {
@@ -483,9 +518,12 @@
                         return acc * 1 + cur.num * 1;
                     }, 0);
                 })
-    
             },
-    
+            getThisWeekWorkTime() {
+                getThisWeekWorkTime().then(res => {
+                    this.taskWorkTimeThisWeek = res.data;
+                })
+            },
             getAccountList() {
                 this.accounts.loading = true;
                 accountList({page: this.accounts.page, pageSize: this.accounts.pageSize}).then(res => {

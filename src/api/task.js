@@ -108,5 +108,9 @@ export function delTaskWorkTime(data) {
 export function getTaskWorkTimeToday(data) {
     return $http.post('project/task/_getTodayWorkTime', data);
 }
+export function getThisWeekWorkTime(data) {
+    return $http.post('project/task/_getThisWeekWorkTime', data);
+}
+
 
 

@@ -705,7 +705,8 @@
                                                                             ></a-avatar>
                                                                         </a-tooltip>
                                                                         {{workTime.member.name}}
-                                                                        {{moment(workTime.begin_time).format('MM月DD日 HH:mm')}}开始 工时为
+                                                                        {{moment(workTime.begin_time).format('MM月DD日 HH:mm')}}开始
+                                                                        {{workTime.end_time ? moment(workTime.end_time * 1000).format('MM月DD日 HH:mm') : '未知时间'}} 结束 工时为
                                                                         {{workTime.num}} 小时
                                                                         <div class="muted"
                                                                              v-show="workTime.content"
@@ -1029,7 +1030,7 @@
                                     addonAfter="小时"
                                     v-decorator="[
                                 'num',
-                                {rules: [{ required: true, message: '请输入消耗时间' }], validateTrigger: 'change'}
+                                {rules: [{ required: true, message: '请输入消耗时间' }], validateTrigger: 'change', initialValue: 0}
                             ]"
                             >
                             </a-input>
@@ -1830,9 +1831,9 @@
                     this.workTimeDo.info = workTime;
                     this.$nextTick(function () {
                         app.workTimeDo.form.setFieldsValue({
-                            num: workTime.num,
+                            num: workTime.num || 0,
                             begin_time: moment(workTime.begin_time),
-                            end_time: workTime.end_time,
+                            end_time: workTime.end_time ? moment(workTime.end_time * 1000) : moment(),
                             content: workTime.content,
                         });
                     })
