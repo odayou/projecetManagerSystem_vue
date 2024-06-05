@@ -54,4 +54,9 @@
 
 <img src="https://static.vilson.xyz/pay/alipay2.png" alt="Sample"  width="150" height="150">
 
+### 魔改内容
 
+- 工时增加了结束时间
+- 首页增加当日、本周工时统计板块
+- 由后端自动根据工时的起止时间，计算工时的时间花费
+- 其他工时编辑和展示相关的改进
