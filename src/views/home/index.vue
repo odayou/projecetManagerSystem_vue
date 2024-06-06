@@ -1,9 +1,7 @@
 <template>
     <div class="home-index">
         <div class="page-header">
-            <p class="day-text muted">『 {{ yiyan.hitokoto }}』 —— 《{{ yiyan.from }}》 <a class="muted" @click="getYiYan">
-                <a-icon type="reload"/>
-            </a>
+            <p class="day-text muted">『 不要纠结不重要的细节』 —— 《做有价值的事》
             </p>
             <div class="header-content" v-if="userInfo">
                 <div class="left-content">
@@ -401,7 +399,6 @@
     import {mapState} from 'vuex'
     import moment from "moment";
     import taskDetail from '../../components/project/taskDetail'
-    import {getYiYan} from "@/api/other";
     import {formatTaskTime, relativelyTime, showHelloTime} from "assets/js/dateTime";
     import {selfList as getProjectList} from "../../api/project";
     import {list as accountList} from "../../api/user";
@@ -471,7 +468,6 @@
             }
         },
         created() {
-            this.getYiYan();
             this.init();
         },
         watch:{
@@ -545,12 +541,6 @@
                     app.events.loading = false;
                     app.events.loadingMore = false
                 })
-            },
-            getYiYan() {
-                let app = this;
-                getYiYan(function (data) {
-                    app.yiyan = data
-                }, 'd')
             },
             getTasks(reload = true) {
                 if (reload) {
