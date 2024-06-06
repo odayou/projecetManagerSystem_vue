@@ -68,13 +68,17 @@
                                         <a-list-item :key="index2" v-for="(item2, index2) in item.list">
                                             <a-list-item-meta>
                                                 <div slot="title">
-                                                    <router-link target="_blank"
+                                                   
+                                                    <router-link target="_self"
                                                             :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}`"
-                                                            class="right-item">「 {{ item2.name }} 」
+                                                            class="right-item">{{ item2.name }}&nbsp;|&nbsp;
                                                     </router-link>
-                                            
+                                                    <router-link  v-show="item2.parentTaskCode" target="_self"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.parentTaskCode}`"
+                                                            class="right-item">{{ item2.parentTaskName }}&nbsp;|&nbsp;
+                                                    </router-link>
                                                     <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
-                                                    <router-link target="_blank" :to="`/project/space/task/${item2.project_code}`">
+                                                    <router-link target="_self" :to="`/project/space/task/${item2.project_code}`">
                                                         {{item2.project_name}}
                                                     </router-link>
                                                     &nbsp;{{ item2.num }} 小时
