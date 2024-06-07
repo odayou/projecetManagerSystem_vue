@@ -597,6 +597,7 @@
                 this.taskCode = '';
                 this.showTaskDetail = false;
                 this.getTasks(false);
+                this.getThisWeekWorkTime();
             },
             taskDone(taskCode, done) {
                 done ? done = 1 : done = 0;
