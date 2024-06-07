@@ -1270,7 +1270,6 @@
                 // return moment(time).format('MM月DD日 HH:mm')
             },
             taskDetail(code, stageIndex) {
-                console.log(code, stageIndex, "taskDetail")
                 this.$router.push(`${this.$route.path}/detail/${code}?from=${stageIndex}`);
             },
             stageSort(event) {

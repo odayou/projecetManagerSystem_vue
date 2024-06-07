@@ -70,11 +70,11 @@
                                                         {{ item2.name }}
                                                     </a-button>
                                                     <!-- <router-link target="_self"
-                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}?from=1`"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}`"
                                                             class="right-item"><a-icon type="edit" theme="twoTone" />
                                                     </router-link> -->&nbsp;|&nbsp;
                                                     <router-link  v-show="item2.parentTaskCode" target="_self"
-                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.parentTaskCode}?from=1`"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.parentTaskCode}`"
                                                             class="right-item">{{ item2.parentTaskName }}&nbsp;|&nbsp;
                                                     </router-link>
                                                     <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
@@ -523,11 +523,6 @@
             },
             getThisWeekWorkTime() {
                 getThisWeekWorkTime().then(res => {
-                    // res.data 按key倒序
-                    // res.data.sort((a, b) => {
-                    //     return a.key - b.key;
-                    // })
-                    
                     // 取本周周一到周日key
                     this.taskWorkTimeThisWeek = this.sortObjectByDateDesc(res.data);
                 })
