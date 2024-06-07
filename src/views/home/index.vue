@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
                                     <a-list>
-                                        <a-list-item :key="index2" v-for="(item2, index2) in item.list">
+                                        <a-list-item style="padding: 2px 0" :key="index2" v-for="(item2, index2) in item.list">
                                             <a-list-item-meta>
                                                 <div slot="title">
                                                     <a-button type="link" style="padding: 0px;" :title="item2.name" @click="showTaskDetail = true;taskCode = item2.task_code">
@@ -197,7 +197,7 @@
                     </a-col>
               
                 <a-col
-                        style="padding: 0 12px;flex: 1"
+                        style="padding: 0 15px;flex: 1"
                         :xl="8"
                         :lg="24"
                         :md="24"
