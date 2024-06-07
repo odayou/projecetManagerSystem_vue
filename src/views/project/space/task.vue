@@ -27,6 +27,7 @@
                     <li class=""><a class="app" data-app="works"
                                     @click="$router.push('/project/space/files/' + code)">
                         文件</a>
+                    </li>
                     <li class=""><a class="app" data-app="build"
                                     @click="$router.push('/project/space/overview/' + code)">
                         概览</a>
@@ -1269,6 +1270,7 @@
                 // return moment(time).format('MM月DD日 HH:mm')
             },
             taskDetail(code, stageIndex) {
+                console.log(code, stageIndex, "taskDetail")
                 this.$router.push(`${this.$route.path}/detail/${code}?from=${stageIndex}`);
             },
             stageSort(event) {

@@ -66,13 +66,15 @@
                                         <a-list-item :key="index2" v-for="(item2, index2) in item.list">
                                             <a-list-item-meta>
                                                 <div slot="title">
-                                                   
-                                                    <router-link target="_self"
-                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}`"
-                                                            class="right-item">{{ item2.name }}&nbsp;|&nbsp;
-                                                    </router-link>
+                                                    <a-button type="link" style="padding: 0px;" :title="item2.name" @click="showTaskDetail = true;taskCode = item2.task_code">
+                                                        {{ item2.name }}
+                                                    </a-button>
+                                                    <!-- <router-link target="_self"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.task_code}?from=1`"
+                                                            class="right-item"><a-icon type="edit" theme="twoTone" />
+                                                    </router-link> -->&nbsp;|&nbsp;
                                                     <router-link  v-show="item2.parentTaskCode" target="_self"
-                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.parentTaskCode}`"
+                                                            :to="`/project/space/task/${item2.project_code}/detail/${item2.parentTaskCode}?from=1`"
                                                             class="right-item">{{ item2.parentTaskName }}&nbsp;|&nbsp;
                                                     </router-link>
                                                     <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
@@ -482,6 +484,7 @@
         },
         methods: {
             init(reset = true, loading = true) {
+                this.getThisWeekWorkTime();
                 if (reset) {
                     this.projectList = [];
                     this.pagination.page = 1;
@@ -493,7 +496,6 @@
                 this.getAccountList();
                 this.getEvents();
                 // this.getTaskWorkTimeToday();
-                this.getThisWeekWorkTime();
             },
             getProjectList(loading) {
                 if (loading) {
@@ -521,8 +523,29 @@
             },
             getThisWeekWorkTime() {
                 getThisWeekWorkTime().then(res => {
-                    this.taskWorkTimeThisWeek = res.data;
+                    // res.data 按key倒序
+                    // res.data.sort((a, b) => {
+                    //     return a.key - b.key;
+                    // })
+                    
+                    // 取本周周一到周日key
+                    this.taskWorkTimeThisWeek = this.sortObjectByDateDesc(res.data);
                 })
+            },
+             sortObjectByDateDesc(obj) {
+                // 提取对象的键（日期）
+                const keys = Object.keys(obj);
+                
+                // 按降序排序日期
+                keys.sort((a, b) => new Date(b) - new Date(a));
+                
+                // 根据排序后的键构造一个新的对象
+                const sortedObj = {};
+                keys.forEach(key => {
+                    sortedObj[key] = obj[key];
+                });
+                
+                return sortedObj;
             },
             getAccountList() {
                 this.accounts.loading = true;
