@@ -78,11 +78,10 @@
                                                             class="right-item">{{ item2.parentTaskName }}&nbsp;|&nbsp;
                                                     </router-link>
                                                     <!--<a-tooltip :mouseEnterDelay="0.3" :title="item.create_time">-->
-                                                    <router-link target="_self" :to="`/project/space/task/${item2.project_code}`">
+                                                    <router-link target="_self" :to="`/project/space/task/${item2.project_code}`"  class="muted">
                                                         {{item2.project_name}}
                                                     </router-link>
                                                     &nbsp;{{ item2.num }} 小时
-
                                                     <!--</a-tooltip>-->
                                                 </div>
                                             </a-list-item-meta>
