@@ -83,6 +83,10 @@
                                                     </router-link>
                                                     &nbsp;{{ item2.num }} 小时
                                                     <!--</a-tooltip>-->
+                                                    <!-- 遍历time_detail数组，展示其中的 start_time、end_time时间戳为格式化时间 -->
+                                                    &nbsp;|<span :key="index3" v-for="(time_detail, index3) in item2.time_detail">
+                                                        {{ moment(time_detail.start_time * 1000).format('MM-DD HH:mm') }} 至 {{ moment(time_detail.end_time * 1000).format('MM-DD HH:mm') }}
+                                                     </span>
                                                 </div>
                                             </a-list-item-meta>
                                         </a-list-item>
