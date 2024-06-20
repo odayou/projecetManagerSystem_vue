@@ -59,7 +59,7 @@
                                 :bordered="false" :key="index" v-for="(item, index) in taskWorkTimeThisWeek">
                                     <div slot="title">
                                         <div class="flex ant-row-flex-space-between ant-row-flex-middle">
-                                            <span>{{index}}&nbsp;{{moment(index).format('dddd')}}{{moment(index).isSame(today, 'day') ? '&nbsp;今天' : ''}}&nbsp;{{item.totalNum}}小时</span>
+                                            <span>{{index}}&nbsp;{{moment(index).format('dddd')}}{{moment(index).isSame(today, 'day') ? '&nbsp;今天' : ''}}&nbsp;{{item.totalNum}}&nbsp;小时</span>
                                         </div>
                                     </div>
                                     <a-list>
@@ -658,8 +658,8 @@
                 }
                 return str;
             },
-        }
     }
+}
 </script>
 <style lang="less">
     .home-index {
