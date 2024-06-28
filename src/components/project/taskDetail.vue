@@ -684,6 +684,12 @@
                                         <div class="field">
                                             <div class="block-field width-block">
                                                 <div class="task-child">
+                                                    <a-tooltip placement="top">
+                                                        <a class="add-handler" @click="doWorkTime(false)">
+                                                            <a-icon type="plus" style="margin-right: 6px;"/>
+                                                            添加工时
+                                                        </a>
+                                                    </a-tooltip>
                                                     <div class="task-list" v-show="workTimeList.length">
                                                         <div
                                                                 v-for="(workTime, index) in workTimeList"
@@ -725,12 +731,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a-tooltip placement="top">
-                                                        <a class="add-handler" @click="doWorkTime(false)">
-                                                            <a-icon type="plus" style="margin-right: 6px;"/>
-                                                            添加工时
-                                                        </a>
-                                                    </a-tooltip>
                                                 </div>
                                             </div>
                                         </div>
