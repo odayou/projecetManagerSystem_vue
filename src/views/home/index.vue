@@ -52,7 +52,7 @@
                                 :bordered="false">
                         <div slot="title">
                             <div class="flex ant-row-flex-space-between ant-row-flex-middle">
-                                <span>本周工时</span>
+                                <span>近期工时</span>
                             </div>
                         </div>
                                 <a-card class="tasks-list"
@@ -81,12 +81,12 @@
                                                     <router-link target="_self" :to="`/project/space/task/${item2.project_code}`"  class="muted">
                                                         {{item2.project_name}}
                                                     </router-link>
-                                                    &nbsp;{{ item2.num }} 小时
                                                     <!--</a-tooltip>-->
                                                     <!-- 遍历time_detail数组，展示其中的 start_time、end_time时间戳为格式化时间 -->
                                                     &nbsp;|<span :key="index3" v-for="(time_detail, index3) in item2.time_detail">
                                                         {{ moment(time_detail.start_time * 1000).format('HH:mm') }}-{{ moment(time_detail.end_time * 1000).format('HH:mm') }} /
                                                      </span>
+                                                     &nbsp;{{ item2.num }} 小时
                                                 </div>
                                             </a-list-item-meta>
                                         </a-list-item>
