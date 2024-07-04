@@ -53,6 +53,15 @@
                         <div slot="title">
                             <div class="flex ant-row-flex-space-between ant-row-flex-middle">
                                 <span>近期工时</span>
+                                <!-- 下拉选项，支持时间快捷选择，快捷选择包括本周、本月、上周+本周、近7天 -->
+                                <a-select v-model="task.workTimeRangeType" style="width: 120px" @change="workTimeChangeHandler" :defaultActiveFirstOption="true">
+                                    <a-select-option value="上周+本周">上周+本周</a-select-option>
+                                    <a-select-option value="本周">本周</a-select-option>
+                                    <a-select-option value="本月">本月</a-select-option>
+                                    <a-select-option value="近7天">近7天</a-select-option>
+                                    <a-select-option value="近30天">近30天</a-select-option>
+                                    <a-select-option value="所有">所有</a-select-option>
+                                </a-select>
                             </div>
                         </div>
                                 <a-card class="tasks-list"
@@ -449,6 +458,7 @@
                     page: 1,
                     pageSize: 10,
                     loading: false,
+                    workTimeRangeType: "本周"
                 },
                 showTaskDetail: false,
                 taskCode: '',
@@ -525,7 +535,7 @@
                 })
             },
             getThisWeekWorkTime() {
-                getThisWeekWorkTime().then(res => {
+                getThisWeekWorkTime({"workTimeRangeType":this.task.workTimeRangeType}).then(res => {
                     // 取本周周一到周日key
                     this.taskWorkTimeThisWeek = this.sortObjectByDateDesc(res.data);
                 })
@@ -574,6 +584,10 @@
                     // this.task.list =  this.task.list.concat(res.data.list);;
                     this.task.total = res.data.total;
                 })
+            },
+            workTimeChangeHandler(value) {
+                this.task.workTimeRangeType = value;
+                this.getThisWeekWorkTime();
             },
             taskTabChange(key) {
                 console.log(key);
